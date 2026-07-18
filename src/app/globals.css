@@ -1,26 +1,179 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --sand: #f3ebe0;
+  --sand-deep: #e6d7c3;
+  --ink: #1c1915;
+  --ink-soft: #3d3830;
+  --sea: #0f4c5c;
+  --sea-deep: #0a3340;
+  --gold: #b8894a;
+  --gold-bright: #d4a574;
+  --foam: #faf7f2;
+  --background: var(--sand);
+  --foreground: var(--ink);
 }
 
 @theme inline {
+  --color-sand: var(--sand);
+  --color-sand-deep: var(--sand-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-sea: var(--sea);
+  --color-sea-deep: var(--sea-deep);
+  --color-gold: var(--gold);
+  --color-gold-bright: var(--gold-bright);
+  --color-foam: var(--foam);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--gold) 35%, transparent);
+  color: var(--ink);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-rise {
+  animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-rise-delay {
+  animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.18s both;
+}
+
+.animate-rise-delay-2 {
+  animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) 0.36s both;
+}
+
+.animate-fade {
+  animation: fade-in 1.4s ease both;
+}
+
+.animate-drift {
+  animation: drift 5s ease-in-out infinite;
+}
+
+.hero-scrim {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(10, 51, 64, 0.35) 0%,
+      rgba(10, 51, 64, 0.15) 40%,
+      rgba(28, 25, 21, 0.72) 100%
+    ),
+    radial-gradient(
+      ellipse 80% 55% at 50% 100%,
+      rgba(184, 137, 74, 0.22),
+      transparent 70%
+    );
+}
+
+.section-wave {
+  background:
+    linear-gradient(180deg, var(--foam) 0%, var(--sand) 100%),
+    repeating-linear-gradient(
+      -12deg,
+      transparent,
+      transparent 18px,
+      color-mix(in srgb, var(--sea) 4%, transparent) 18px,
+      color-mix(in srgb, var(--sea) 4%, transparent) 19px
+    );
+}
+
+.night-panel {
+  background:
+    linear-gradient(135deg, var(--sea-deep) 0%, var(--sea) 55%, #156677 100%);
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.75rem;
+  background: var(--gold);
+  color: var(--ink);
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.btn-primary:hover {
+  background: var(--gold-bright);
+  transform: translateY(-2px);
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.75rem;
+  background: transparent;
+  color: var(--foam);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  border: 1px solid color-mix(in srgb, var(--foam) 45%, transparent);
+  cursor: pointer;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+.btn-ghost:hover {
+  border-color: var(--foam);
+  background: color-mix(in srgb, var(--foam) 8%, transparent);
+  transform: translateY(-2px);
 }
